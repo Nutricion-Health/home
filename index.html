@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutrición.Health — Entiende tu diabetes. Vive con confianza.</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green:       #2B4038;
+      --green-mid:   #3D5C4F;
+      --green-light: #D4E4DD;
+      --green-pale:  #EBF3EF;
+      --cream:       #F7F3ED;
+      --cream-dark:  #EDE8DF;
+      --amber:       #C4832B;
+      --amber-light: #F5E8D6;
+      --charcoal:    #1E1C19;
+      --charcoal-60: #6B6760;
+      --charcoal-30: #C2C0BC;
+      --white:       #FFFFFF;
+      --sans:  'DM Sans', system-ui, sans-serif;
+      --serif: 'Playfair Display', Georgia, serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--cream); color: var(--charcoal); font-size: 16px; line-height: 1.6; }
+
+    /* ─── NAV ─── */
+    .site-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--cream-dark);
+      padding: 0 48px;
+      height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 1px 12px rgba(0,0,0,.06);
+    }
+    .nav-brand { font-family: var(--serif); font-size: 21px; font-weight: 400; color: var(--green); text-decoration: none; }
+    .nav-brand span { color: var(--amber); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--charcoal-60); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta {
+      background: var(--green); color: var(--white);
+      font-size: 13px; font-weight: 600;
+      padding: 11px 24px; border-radius: 32px;
+      text-decoration: none; letter-spacing: .02em;
+      transition: background .2s;
+    }
+    .nav-cta:hover { background: var(--green-mid); }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: var(--green);
+      padding: 96px 48px 88px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+    .hero-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--amber);
+      margin-bottom: 22px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before { content: ''; display: inline-block; width: 28px; height: 2px; background: var(--amber); }
+    .hero-h1 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 400; color: var(--white);
+      line-height: 1.1; margin-bottom: 22px;
+    }
+    .hero-h1 em { color: var(--amber); font-style: normal; }
+    .hero-sub {
+      font-size: 16px; font-weight: 300;
+      color: var(--green-light); line-height: 1.75;
+      margin-bottom: 36px; max-width: 500px;
+    }
+    .hero-actions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--amber); color: var(--white);
+      font-size: 15px; font-weight: 600;
+      padding: 15px 32px; border-radius: 34px;
+      text-decoration: none; letter-spacing: .02em;
+      display: inline-block; transition: opacity .2s;
+    }
+    .btn-primary:hover { opacity: .88; }
+    .btn-ghost {
+      color: var(--green-light); font-size: 14px; font-weight: 500;
+      text-decoration: none; display: flex; align-items: center; gap: 6px;
+      transition: color .2s;
+    }
+    .btn-ghost:hover { color: var(--white); }
+    .btn-ghost::after { content: '→'; }
+    .hero-trust {
+      margin-top: 44px; display: flex; align-items: center; gap: 28px;
+      padding-top: 36px; border-top: 1px solid rgba(255,255,255,.12);
+      flex-wrap: wrap;
+    }
+    .trust-item { display: flex; align-items: center; gap: 10px; }
+    .trust-icon { width: 22px; height: 22px; flex-shrink: 0; opacity: .7; }
+    .trust-text { font-size: 12px; color: rgba(255,255,255,.55); line-height: 1.4; }
+
+    /* Hero visual card */
+    .hero-visual {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 18px; padding: 30px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .hero-visual-label {
+      font-size: 10px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 2px;
+    }
+    .hero-card {
+      background: rgba(255,255,255,.09);
+      border-radius: 12px; padding: 18px 20px;
+      display: flex; align-items: center; gap: 16px;
+      transition: background .2s;
+    }
+    .hero-card:hover { background: rgba(255,255,255,.13); }
+    .hero-card-icon {
+      width: 42px; height: 42px; border-radius: 9px;
+      background: var(--amber); display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0;
+    }
+    .hero-card-icon svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .hero-card-text strong { display: block; font-size: 14px; font-weight: 600; color: var(--white); }
+    .hero-card-text span { font-size: 12px; color: rgba(255,255,255,.5); }
+    .hero-card-cta {
+      background: var(--amber); color: var(--white);
+      font-size: 14px; font-weight: 600;
+      padding: 14px 24px; border-radius: 32px;
+      text-decoration: none; text-align: center;
+      margin-top: 4px; display: block;
+      transition: opacity .2s;
+    }
+    .hero-card-cta:hover { opacity: .88; }
+
+    /* ─── TRUST BAR ─── */
+    .trustbar {
+      background: var(--cream-dark);
+      padding: 18px 48px;
+      display: flex; align-items: center; gap: 40px;
+      border-bottom: 1px solid var(--charcoal-30);
+      overflow-x: auto;
+    }
+    .trustbar-label {
+      font-size: 10px; font-weight: 700; letter-spacing: .13em;
+      text-transform: uppercase; color: var(--charcoal-60);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .trustbar-divider { width: 1px; height: 24px; background: var(--charcoal-30); flex-shrink: 0; }
+    .trustbar-items { display: flex; gap: 36px; align-items: center; flex-wrap: nowrap; }
+    .tb-item {
+      font-size: 12px; font-weight: 600; color: var(--charcoal-60);
+      letter-spacing: .04em; white-space: nowrap;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .tb-item::before { content: '✓'; color: var(--green); font-weight: 700; }
+
+    /* ─── VALUE PROP ─── */
+    .valueprop { padding: 96px 48px; background: var(--white); }
+    .vp-header { text-align: center; max-width: 640px; margin: 0 auto 60px; }
+    .section-tag {
+      font-size: 11px; font-weight: 700; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 16px;
+    }
+    .section-h2 {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3vw, 44px);
+      font-weight: 400; color: var(--green);
+      line-height: 1.2; margin-bottom: 18px;
+    }
+    .section-sub { font-size: 15px; color: var(--charcoal-60); line-height: 1.8; }
+    .vp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .vp-card { background: var(--cream); border-radius: 14px; padding: 32px; transition: box-shadow .2s; }
+    .vp-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.08); }
+    .vp-card-icon {
+      width: 52px; height: 52px; background: var(--green-pale);
+      border-radius: 12px; display: flex; align-items: center;
+      justify-content: center; margin-bottom: 20px;
+    }
+    .vp-card-icon svg { width: 24px; height: 24px; stroke: var(--green); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .vp-card h3 { font-family: var(--serif); font-size: 20px; font-weight: 400; color: var(--green); margin-bottom: 12px; }
+    .vp-card p { font-size: 14px; color: var(--charcoal-60); line-height: 1.75; }
+
+    /* ─── HOW IT WORKS ─── */
+    .how { padding: 96px 48px; background: var(--cream); }
+    .how-header { text-align: center; max-width: 580px; margin: 0 auto 64px; }
+    .how-h2 {
+      font-family: var(--serif); font-size: clamp(26px, 3vw, 42px);
+      font-weight: 400; color: var(--charcoal); line-height: 1.2; margin-bottom: 16px;
+    }
+    .how-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; position: relative; max-width: 960px; margin: 0 auto;
+    }
+    .how-steps::before {
+      content: ''; position: absolute;
+      top: 27px; left: 12.5%; right: 12.5%;
+      height: 2px; background: var(--cream-dark); z-index: 0;
+    }
+    .step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 24px; position: relative; z-index: 1; }
+    .step-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--green); color: var(--white);
+      font-family: var(--serif); font-size: 22px; font-weight: 400;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 22px; flex-shrink: 0;
+      box-shadow: 0 0 0 6px var(--cream);
+    }
+    .step h4 { font-family: var(--serif); font-size: 16px; font-weight: 400; color: var(--charcoal); margin-bottom: 10px; }
+    .step p { font-size: 13px; color: var(--charcoal-60); line-height: 1.65; }
+
+    /* ─── DUAL AUDIENCE ─── */
+    .dual { display: grid; grid-template-columns: 1fr 1fr; }
+    .audience-panel { padding: 80px 60px; }
+    .audience-panel.patient { background: var(--green); }
+    .audience-panel.doctor { background: var(--white); border-left: 1px solid var(--cream-dark); }
+    .aud-label { font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 18px; color: var(--amber); }
+    .aud-h2 { font-family: var(--serif); font-size: clamp(24px, 2.5vw, 36px); font-weight: 400; line-height: 1.2; margin-bottom: 20px; }
+    .aud-h2.p { color: var(--white); }
+    .aud-h2.d { color: var(--green); }
+    .aud-body { font-size: 14px; line-height: 1.8; margin-bottom: 32px; }
+    .aud-body.p { color: var(--green-light); }
+    .aud-body.d { color: var(--charcoal-60); }
+    .aud-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; }
+    .aud-item { display: flex; gap: 14px; align-items: flex-start; }
+    .aud-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
+    .aud-dot.p { background: var(--amber); }
+    .aud-dot.d { background: var(--green); }
+    .aud-item-text { font-size: 14px; line-height: 1.65; }
+    .aud-item-text.p { color: rgba(255,255,255,.82); }
+    .aud-item-text.d { color: var(--charcoal-60); }
+    .aud-cta-p {
+      background: var(--amber); color: var(--white);
+      font-size: 14px; font-weight: 600; padding: 15px 30px;
+      border-radius: 34px; display: inline-block; text-decoration: none;
+      transition: opacity .2s;
+    }
+    .aud-cta-p:hover { opacity: .88; }
+    .aud-cta-d {
+      background: var(--green); color: var(--white);
+      font-size: 14px; font-weight: 600; padding: 15px 30px;
+      border-radius: 34px; display: inline-block; text-decoration: none;
+      transition: opacity .2s;
+    }
+    .aud-cta-d:hover { opacity: .88; }
+
+    /* ─── TESTIMONIAL ─── */
+    .testimonial { padding: 96px 48px; background: var(--green); text-align: center; }
+    .test-mark { font-family: var(--serif); font-size: 96px; color: rgba(255,255,255,.1); line-height: .4; margin-bottom: 36px; display: block; }
+    .test-text {
+      font-family: var(--serif); font-size: clamp(20px, 2.5vw, 32px);
+      font-weight: 400; font-style: italic; color: var(--white);
+      max-width: 780px; margin: 0 auto 32px; line-height: 1.5;
+    }
+    .test-bar { width: 44px; height: 3px; background: var(--amber); margin: 0 auto 22px; }
+    .test-source { font-size: 13px; font-weight: 600; color: var(--amber); letter-spacing: .1em; text-transform: uppercase; }
+    .test-stats {
+      display: flex; justify-content: center; gap: 64px;
+      margin-top: 64px; padding-top: 56px;
+      border-top: 1px solid rgba(255,255,255,.12);
+      flex-wrap: wrap;
+    }
+    .ts-item { text-align: center; }
+    .ts-num { font-family: var(--serif); font-size: 44px; font-weight: 700; color: var(--amber); line-height: 1; margin-bottom: 10px; }
+    .ts-label { font-size: 13px; color: rgba(255,255,255,.5); max-width: 150px; margin: 0 auto; line-height: 1.55; }
+
+    /* ─── FAQ ─── */
+    .faq { padding: 96px 48px; background: var(--cream); }
+    .faq-inner { max-width: 740px; margin: 0 auto; }
+    .faq-header { margin-bottom: 44px; }
+    .faq-h2 { font-family: var(--serif); font-size: 38px; font-weight: 400; color: var(--charcoal); margin-bottom: 12px; }
+    .faq-sub { font-size: 15px; color: var(--charcoal-60); }
+    .faq-item {
+      background: var(--white); border-radius: 12px;
+      padding: 24px 28px; margin-bottom: 10px;
+      border: 1px solid var(--cream-dark);
+      cursor: pointer; transition: box-shadow .2s;
+    }
+    .faq-item:hover { box-shadow: 0 4px 20px rgba(0,0,0,.07); }
+    .faq-q {
+      font-size: 15px; font-weight: 600; color: var(--charcoal);
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    }
+    .faq-q .faq-icon { font-size: 22px; font-weight: 300; color: var(--amber); flex-shrink: 0; transition: transform .25s; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      font-size: 14px; color: var(--charcoal-60); line-height: 1.8;
+      margin-top: 0; max-height: 0; overflow: hidden;
+      transition: max-height .3s ease, margin-top .3s ease;
+    }
+    .faq-item.open .faq-a { max-height: 200px; margin-top: 14px; }
+
+    /* ─── CTA FINAL ─── */
+    .cta-section { padding: 96px 48px; background: var(--amber-light); }
+    .cta-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .cta-tag { font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); margin-bottom: 18px; }
+    .cta-h2 {
+      font-family: var(--serif); font-size: clamp(26px, 3vw, 44px);
+      font-weight: 400; color: var(--charcoal); line-height: 1.2; margin-bottom: 18px;
+    }
+    .cta-sub { font-size: 15px; color: var(--charcoal-60); margin-bottom: 40px; line-height: 1.75; }
+    .cta-form { display: flex; gap: 10px; max-width: 480px; margin: 0 auto 18px; }
+    .cta-input {
+      flex: 1; padding: 15px 20px;
+      border: 1px solid var(--cream-dark); border-radius: 32px;
+      font-family: var(--sans); font-size: 14px; color: var(--charcoal);
+      background: var(--white); outline: none; transition: border-color .2s;
+    }
+    .cta-input:focus { border-color: var(--green); }
+    .cta-input::placeholder { color: var(--charcoal-30); }
+    .cta-btn {
+      background: var(--green); color: var(--white);
+      font-size: 14px; font-weight: 600;
+      padding: 15px 28px; border-radius: 32px;
+      border: none; cursor: pointer; white-space: nowrap;
+      font-family: var(--sans); transition: background .2s;
+    }
+    .cta-btn:hover { background: var(--green-mid); }
+    .cta-note { font-size: 12px; color: var(--charcoal-30); }
+
+    /* ─── FOOTER ─── */
+    .site-footer {
+      background: var(--charcoal); padding: 60px 48px 0;
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 56px;
+    }
+    .f-brand { font-family: var(--serif); font-size: 24px; font-weight: 400; color: var(--white); margin-bottom: 10px; }
+    .f-brand span { color: var(--amber); }
+    .f-tagline { font-size: 13px; color: rgba(255,255,255,.32); font-style: italic; margin-bottom: 22px; }
+    .f-note { font-size: 12px; color: rgba(255,255,255,.22); line-height: 1.75; max-width: 300px; }
+    .f-col h5 {
+      font-size: 10px; font-weight: 700; letter-spacing: .13em;
+      text-transform: uppercase; color: rgba(255,255,255,.32); margin-bottom: 16px;
+    }
+    .f-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .f-col li a { font-size: 13px; color: rgba(255,255,255,.52); text-decoration: none; transition: color .2s; }
+    .f-col li a:hover { color: rgba(255,255,255,.85); }
+    .f-bottom {
+      background: var(--charcoal); padding: 18px 48px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display: flex; justify-content: space-between;
+      font-size: 11px; color: rgba(255,255,255,.2);
+      margin-top: 56px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .site-nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 64px 24px; gap: 40px; }
+      .hero-visual { display: none; }
+      .trustbar { padding: 16px 24px; gap: 20px; }
+      .valueprop { padding: 64px 24px; }
+      .vp-grid { grid-template-columns: 1fr; }
+      .how { padding: 64px 24px; }
+      .how-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .how-steps::before { display: none; }
+      .dual { grid-template-columns: 1fr; }
+      .audience-panel { padding: 56px 28px; }
+      .audience-panel.doctor { border-left: none; border-top: 1px solid var(--cream-dark); }
+      .testimonial { padding: 64px 24px; }
+      .test-stats { gap: 36px; }
+      .faq { padding: 64px 24px; }
+      .cta-section { padding: 64px 24px; }
+      .cta-form { flex-direction: column; }
+      .cta-input, .cta-btn { width: 100%; }
+      .site-footer { grid-template-columns: 1fr; padding: 48px 24px 0; gap: 36px; }
+      .f-bottom { padding: 16px 24px; flex-direction: column; gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAVEGACIÓN ═══ -->
+<nav class="site-nav">
+  <a href="#" class="nav-brand">Nutrición<span>.</span>Health</a>
+  <ul class="nav-links">
+    <li><a href="#como-funciona">Cómo funciona</a></li>
+    <li><a href="#para-medicos">Para médicos</a></li>
+    <li><a href="#preguntas">Preguntas</a></li>
+  </ul>
+  <a href="#registro" class="nav-cta">Quiero ser notificado</a>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="inicio">
+  <div>
+    <div class="hero-eyebrow">Educación en diabetes · En español · Remoto</div>
+    <h1 class="hero-h1">Entiende tu diabetes.<br>Vive con <em>confianza.</em></h1>
+    <p class="hero-sub">Sesiones grupales de educación en diabetes — en español, completamente remotas. Diseñadas para complementar, no reemplazar, el cuidado de tu médico.</p>
+    <div class="hero-actions">
+      <a href="#registro" class="btn-primary">Regístrate para ser notificado →</a>
+      <a href="#para-medicos" class="btn-ghost">¿Para médicos?</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" stroke="var(--green-light)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span class="trust-text">100% en<br>español</span>
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" stroke="var(--green-light)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <span class="trust-text">Sesiones<br>por Zoom</span>
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" stroke="var(--green-light)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span class="trust-text">Grupo pequeño<br>máx. 10 personas</span>
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" stroke="var(--green-light)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span class="trust-text">Facilitador<br>de salud</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-visual-label">Lo que incluye el programa</div>
+    <div class="hero-card">
+      <div class="hero-card-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      </div>
+      <div class="hero-card-text">
+        <strong>8 sesiones estructuradas</strong>
+        <span>60–90 minutos · formato grupal remoto</span>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="hero-card-text">
+        <strong>Grupo pequeño en español</strong>
+        <span>Máx. 10 participantes · facilitador de salud</span>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="12" y2="17"/></svg>
+      </div>
+      <div class="hero-card-text">
+        <strong>Resumen para tu médico</strong>
+        <span>Tu equipo médico recibe tu progreso</span>
+      </div>
+    </div>
+    <a href="#registro" class="hero-card-cta">Quiero ser notificado</a>
+  </div>
+</section>
+
+<!-- ═══ TRUST BAR ═══ -->
+<div class="trustbar">
+  <span class="trustbar-label">Diseñado para</span>
+  <div class="trustbar-divider"></div>
+  <div class="trustbar-items">
+    <span class="tb-item">Pacientes hispanohablantes</span>
+    <span class="tb-item">Facilitado por profesional de salud</span>
+    <span class="tb-item">Basado en estándares DSME</span>
+    <span class="tb-item">100% en español</span>
+    <span class="tb-item">Accesible desde Puerto Rico y EE.UU.</span>
+  </div>
+</div>
+
+<!-- ═══ PROPUESTA DE VALOR ═══ -->
+<section class="valueprop" id="por-que">
+  <div class="vp-header">
+    <div class="section-tag">Por qué funciona</div>
+    <h2 class="section-h2">Lo que el consultorio no puede darte en 15 minutos.</h2>
+    <p class="section-sub">Tu médico trata la enfermedad. Nosotros te enseñamos a vivir con ella — todos los días, en tu idioma, desde tu casa.</p>
+  </div>
+  <div class="vp-grid">
+    <div class="vp-card">
+      <div class="vp-card-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+      </div>
+      <h3>Tiempo real de aprendizaje</h3>
+      <p>8 sesiones de 60–90 minutos. No una charla de 5 minutos al final de la cita. Tiempo real para preguntar, entender y practicar.</p>
+    </div>
+    <div class="vp-card">
+      <div class="vp-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <h3>En español, sin adaptaciones</h3>
+      <p>No es una traducción. Es un programa creado y facilitado completamente en español, diseñado para la realidad cultural hispana.</p>
+    </div>
+    <div class="vp-card">
+      <div class="vp-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <h3>Complementario a tu médico</h3>
+      <p>No reemplazamos a tu equipo de salud — los extendemos. Todo lo aprendido en sesión refuerza lo que ya te indicó tu médico.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CÓMO FUNCIONA ═══ -->
+<section class="how" id="como-funciona">
+  <div class="how-header">
+    <div class="section-tag">El proceso</div>
+    <h2 class="how-h2">Así va a funcionar el programa.</h2>
+    <p class="section-sub">Cuatro pasos. Sin complicaciones. Tu médico inicia el proceso — tú solo tienes que aparecer.</p>
+  </div>
+  <div class="how-steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Tu médico te refiere</h4>
+      <p>El médico completa una tarjeta de referido o nos contacta directamente para inscribirte.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Te contactamos</h4>
+      <p>Nuestro equipo te llama para confirmar elegibilidad, cobertura Medicare y agendar tu primera sesión.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Te unes por Zoom</h4>
+      <p>Sesiones grupales en español, desde tu casa. Grupo pequeño, máximo 10 participantes.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Avanzas con confianza</h4>
+      <p>Después de cada sesión, tu médico recibe un resumen de tu progreso educativo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DOS AUDIENCIAS ═══ -->
+<section class="dual" id="para-medicos">
+  <div class="audience-panel patient">
+    <div class="aud-label">Para el paciente</div>
+    <h2 class="aud-h2 p">Un espacio para preguntar todo lo que no pudiste preguntar en el consultorio.</h2>
+    <p class="aud-body p">Aquí nadie tiene prisa. Cada sesión tiene tiempo real para tus dudas, con un facilitador que habla tu idioma y entiende tu realidad.</p>
+    <div class="aud-list">
+      <div class="aud-item"><div class="aud-dot p"></div><span class="aud-item-text p">Aprende a leer tu glucómetro y entender los números</span></div>
+      <div class="aud-item"><div class="aud-dot p"></div><span class="aud-item-text p">Entiende qué comer sin renunciar a tu cultura alimentaria</span></div>
+      <div class="aud-item"><div class="aud-dot p"></div><span class="aud-item-text p">Reduce el estrés de no saber qué esperar con tu diabetes</span></div>
+      <div class="aud-item"><div class="aud-dot p"></div><span class="aud-item-text p">Accesible desde tu casa, con solo un teléfono o computadora</span></div>
+    </div>
+    <a href="#registro" class="aud-cta-p">Quiero ser notificado</a>
+  </div>
+  <div class="audience-panel doctor">
+    <div class="aud-label">Para el médico que refiere</div>
+    <h2 class="aud-h2 d">Educación estructurada para los pacientes que más la necesitan.</h2>
+    <p class="aud-body d">El 90% de los pacientes con DM2 nunca reciben educación estructurada. No por falta de interés — por falta de acceso y tiempo en el consultorio.</p>
+    <div class="aud-list">
+      <div class="aud-item"><div class="aud-dot d"></div><span class="aud-item-text d">Programa estructurado para complementar su plan de tratamiento</span></div>
+      <div class="aud-item"><div class="aud-dot d"></div><span class="aud-item-text d">Informe de progreso al médico referidor tras cada ciclo</span></div>
+      <div class="aud-item"><div class="aud-dot d"></div><span class="aud-item-text d">Reducción promedio de –1.0% HbA1c con educación estructurada</span></div>
+      <div class="aud-item"><div class="aud-dot d"></div><span class="aud-item-text d">Proceso de referido simple — tarjeta física o contacto directo</span></div>
+    </div>
+    <a href="mailto:medicos@nutricion.health" class="aud-cta-d">Información para médicos</a>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIO ═══ -->
+<section class="testimonial">
+  <span class="test-mark">"</span>
+  <p class="test-text">Por primera vez entendí por qué mis números cambiaban. Nadie me había explicado la conexión entre lo que como y lo que marca el glucómetro.</p>
+  <div class="test-bar"></div>
+  <div class="test-source">Participante del programa piloto · Puerto Rico</div>
+  <div class="test-stats">
+    <div class="ts-item">
+      <div class="ts-num">&lt;5%</div>
+      <div class="ts-label">de pacientes Medicare accede a educación DSME disponible</div>
+    </div>
+    <div class="ts-item">
+      <div class="ts-num">–1.0%</div>
+      <div class="ts-label">reducción en HbA1c con programa DSME estructurado</div>
+    </div>
+    <div class="ts-item">
+      <div class="ts-num">13–16 min</div>
+      <div class="ts-label">tiempo promedio de consulta de atención primaria</div>
+    </div>
+    <div class="ts-item">
+      <div class="ts-num">8</div>
+      <div class="ts-label">sesiones grupales con facilitador credenciado</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="faq" id="preguntas">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <div class="section-tag">Preguntas frecuentes</div>
+      <h2 class="faq-h2">Lo que más nos preguntan.</h2>
+      <p class="faq-sub">Pacientes y médicos. Respondido sin rodeos.</p>
+    </div>
+
+    <div class="faq-item open">
+      <div class="faq-q">
+        ¿Esto reemplaza a mi médico o nutricionista?
+        <span class="faq-icon">+</span>
+      </div>
+      <p class="faq-a">No. El programa DSME está diseñado para complementar — no reemplazar — el cuidado de tu equipo médico. Todo lo que aprendes en sesión refuerza lo que ya te indicó tu médico.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">
+        ¿Cuánto cuesta el programa?
+        <span class="faq-icon">+</span>
+      </div>
+      <p class="faq-a">Estamos en proceso de establecer la estructura de costos y los mecanismos de cobertura del programa. Regístrate y te informamos en cuanto tengamos los detalles disponibles.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">
+        ¿Necesito computadora o saber usar Zoom?
+        <span class="faq-icon">+</span>
+      </div>
+      <p class="faq-a">Puedes conectarte desde un teléfono celular, tableta o computadora. Te enviamos instrucciones paso a paso antes de tu primera sesión para que la conexión sea sencilla.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">
+        Soy médico — ¿cómo funciona el proceso de referido?
+        <span class="faq-icon">+</span>
+      </div>
+      <p class="faq-a">Puedes usar la tarjeta de referido físico que dejamos en tu consultorio, o contactarnos directamente por email o teléfono. Nosotros nos encargamos del proceso de verificación de elegibilidad.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">
+        ¿En qué se diferencia de los videos de YouTube o apps de salud?
+        <span class="faq-icon">+</span>
+      </div>
+      <p class="faq-a">Es un programa certificado DSME con estructura clínica validada, facilitador credenciado y seguimiento real. No es contenido genérico — es educación estructurada que complementa tu tratamiento médico y que Medicare reconoce como beneficio cubierto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA FINAL ═══ -->
+<section class="cta-section" id="registro">
+  <div class="cta-inner">
+    <div class="cta-tag">Próximamente</div>
+    <h2 class="cta-h2">Sé de los primeros en saber cuándo abrimos.</h2>
+    <p class="cta-sub">Déjanos tu nombre y email. Te avisamos cuando el programa esté disponible — sin compromiso, sin spam.</p>
+    <form class="cta-form" onsubmit="handleSubmit(event)">
+      <input type="text" class="cta-input" placeholder="Tu nombre completo" required>
+      <button type="submit" class="cta-btn">Quiero ser notificado</button>
+    </form>
+    <p class="cta-note">Solo te contactamos para avisarte. Tus datos son privados.</p>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="site-footer">
+    <div>
+      <div class="f-brand">Nutrición<span>.</span>Health</div>
+      <div class="f-tagline">Más allá del consultorio.</div>
+      <p class="f-note">Programa de Educación y Apoyo para el Automanejo de la Diabetes (DSME/S). Cubierto por Medicare Part B para beneficiarios elegibles. Este programa complementa — no reemplaza — el cuidado de su equipo médico.</p>
+    </div>
+    <div class="f-col">
+      <h5>Para médicos</h5>
+      <ul>
+        <li><a href="#">Información del programa</a></li>
+        <li><a href="#">Proceso de referido</a></li>
+        <li><a href="#">Credenciales del facilitador</a></li>
+        <li><a href="mailto:medicos@nutricion.health">Contacto directo</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h5>Información legal</h5>
+      <ul>
+        <li><a href="#">Aviso de privacidad (HIPAA)</a></li>
+        <li><a href="#">Términos del servicio</a></li>
+        <li><a href="#">Cobertura Medicare</a></li>
+        <li><a href="#">Instagram · Facebook</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2026 Nutrición.Health · Todos los derechos reservados</span>
+    <span>Facilitador: Giovanna Gierbolini Rodríguez · Registered Dietitian Nutritionist</span>
+  </div>
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-q').addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Form handler (placeholder)
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.cta-btn');
+    btn.textContent = '¡Listo! Te contactamos pronto.';
+    btn.style.background = 'var(--green)';
+    btn.disabled = true;
+    e.target.querySelector('.cta-input').disabled = true;
+  }
+
+  // Smooth nav active state on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--green)' : '';
+    });
+  });
+</script>
+</body>
+</html>
