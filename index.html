@@ -306,21 +306,35 @@
       font-weight: 400; color: var(--charcoal); line-height: 1.2; margin-bottom: 18px;
     }
     .cta-sub { font-size: 15px; color: var(--charcoal-60); margin-bottom: 40px; line-height: 1.75; }
-    .cta-form { display: flex; gap: 10px; max-width: 480px; margin: 0 auto 18px; }
+    /* Audience toggle */
+    .aud-toggle { display: flex; gap: 8px; justify-content: center; margin-bottom: 24px; }
+    .aud-toggle-btn {
+      font-family: var(--sans); font-size: 13px; font-weight: 600;
+      padding: 9px 22px; border-radius: 30px; border: 2px solid var(--cream-dark);
+      background: var(--white); color: var(--charcoal-60); cursor: pointer;
+      transition: all .2s;
+    }
+    .aud-toggle-btn.active { background: var(--green); color: var(--white); border-color: var(--green); }
+
+    /* Form fields */
+    .cta-form { display: flex; flex-direction: column; gap: 10px; max-width: 480px; margin: 0 auto 18px; }
     .cta-input {
-      flex: 1; padding: 15px 20px;
-      border: 1px solid var(--cream-dark); border-radius: 32px;
+      width: 100%; padding: 15px 20px;
+      border: 1px solid var(--cream-dark); border-radius: 12px;
       font-family: var(--sans); font-size: 14px; color: var(--charcoal);
       background: var(--white); outline: none; transition: border-color .2s;
     }
     .cta-input:focus { border-color: var(--green); }
     .cta-input::placeholder { color: var(--charcoal-30); }
+    .cta-field-extra { display: none; }
+    .cta-field-extra.visible { display: block; }
     .cta-btn {
       background: var(--green); color: var(--white);
       font-size: 14px; font-weight: 600;
-      padding: 15px 28px; border-radius: 32px;
-      border: none; cursor: pointer; white-space: nowrap;
+      padding: 15px 28px; border-radius: 12px;
+      border: none; cursor: pointer; width: 100%;
       font-family: var(--sans); transition: background .2s;
+      margin-top: 4px;
     }
     .cta-btn:hover { background: var(--green-mid); }
     .cta-note { font-size: 12px; color: var(--charcoal-30); }
@@ -511,7 +525,7 @@
     <div class="step">
       <div class="step-num">2</div>
       <h4>Te contactamos</h4>
-      <p>Nuestro equipo te llama para confirmar elegibilidad, cobertura Medicare y agendar tu primera sesión.</p>
+      <p>Nuestro equipo te contacta para conocer tu situación y coordinar tu participación en el programa.</p>
     </div>
     <div class="step">
       <div class="step-num">3</div>
@@ -626,7 +640,7 @@
         ¿En qué se diferencia de los videos de YouTube o apps de salud?
         <span class="faq-icon">+</span>
       </div>
-      <p class="faq-a">Es un programa certificado DSME con estructura clínica validada, facilitador credenciado y seguimiento real. No es contenido genérico — es educación estructurada que complementa tu tratamiento médico y que Medicare reconoce como beneficio cubierto.</p>
+      <p class="faq-a">No es contenido genérico. Es un programa estructurado con facilitador de salud credenciado, sesiones en grupo pequeño, y seguimiento real a tu médico. Está diseñado siguiendo los estándares DSME — la misma metodología que usan los programas de educación en diabetes más reconocidos a nivel clínico.</p>
     </div>
   </div>
 </section>
@@ -636,10 +650,20 @@
   <div class="cta-inner">
     <div class="cta-tag">Próximamente</div>
     <h2 class="cta-h2">Sé de los primeros en saber cuándo abrimos.</h2>
-    <p class="cta-sub">Déjanos tu nombre y email. Te avisamos cuando el programa esté disponible — sin compromiso, sin spam.</p>
-    <form class="cta-form" onsubmit="handleSubmit(event)">
-      <input type="text" class="cta-input" placeholder="Tu nombre completo" required>
-      <button type="submit" class="cta-btn">Quiero ser notificado</button>
+    <p class="cta-sub">Déjanos tu información. Te avisamos cuando el programa esté disponible — sin compromiso, sin spam.</p>
+
+    <div class="aud-toggle">
+      <button type="button" class="aud-toggle-btn active" data-type="patient" onclick="switchAudience('patient')">Soy paciente</button>
+      <button type="button" class="aud-toggle-btn" data-type="doctor" onclick="switchAudience('doctor')">Soy profesional de salud</button>
+    </div>
+
+    <form class="cta-form" id="cta-form" onsubmit="handleSubmit(event)">
+      <input type="hidden" name="fields[audience]" id="field-audience" value="paciente">
+      <input type="text" name="fields[name]" class="cta-input" placeholder="Tu nombre completo" required>
+      <input type="email" name="email" class="cta-input" placeholder="Tu email" required>
+      <input type="text" name="fields[specialty]" class="cta-input cta-field-extra" id="field-specialty" placeholder="Especialidad médica">
+      <input type="tel" name="fields[phone]" class="cta-input cta-field-extra" id="field-phone" placeholder="Teléfono de contacto (opcional)">
+      <button type="submit" class="cta-btn" id="cta-submit-btn">Quiero ser notificado</button>
     </form>
     <p class="cta-note">Solo te contactamos para avisarte. Tus datos son privados.</p>
   </div>
@@ -651,7 +675,7 @@
     <div>
       <div class="f-brand">Nutrición<span>.</span>Health</div>
       <div class="f-tagline">Más allá del consultorio.</div>
-      <p class="f-note">Programa de Educación y Apoyo para el Automanejo de la Diabetes (DSME/S). Cubierto por Medicare Part B para beneficiarios elegibles. Este programa complementa — no reemplaza — el cuidado de su equipo médico.</p>
+      <p class="f-note">Programa de Educación y Apoyo para el Automanejo de la Diabetes (DSME/S). Desarrollado bajo los estándares nacionales de educación en diabetes. Este programa complementa — no reemplaza — el cuidado de su equipo médico.</p>
     </div>
     <div class="f-col">
       <h5>Para médicos</h5>
@@ -679,7 +703,89 @@
 </footer>
 
 <script>
-  // FAQ accordion
+  // ─── MAILERLITE CONFIG ───────────────────────────────────────────
+  // 1. Crea una cuenta en mailerlite.com
+  // 2. Ve a Subscribers → Groups y crea dos grupos:
+  //    - "Pacientes - Lista de espera"
+  //    - "Médicos - Lista de espera"
+  // 3. Ve a Integrations → API → copia tu API key
+  // 4. Copia los IDs de cada grupo (están en la URL cuando los abres)
+  // 5. Reemplaza los valores de abajo con los tuyos
+
+  const ML_API_KEY        = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiOTEwNTcwYzAzZTNjYzg1YTU0Mjc1YzI3Y2NkMTgzMzVkMjlmNDhlYTFlM2Y1YjIyMWYyYTBiYjc5NGJmY2QxMzhlNGI0ZjY2YzU2ZWJhODQiLCJpYXQiOjE3NzU0MzU3NTguMjUyMjgyLCJuYmYiOjE3NzU0MzU3NTguMjUyMjg0LCJleHAiOjQ5MzExMDkzNTguMjQ1Njk4LCJzdWIiOiIyMjY2NjQxIiwic2NvcGVzIjpbXX0.KN5VN9arBETTMjXfUrOMhkjb8UUoEXm0tSleCqUHPlIQqBl0KRoZbSMzX7zSa1qQF7yGMTNZ9d5lErUyE0_ryiz_ms_LWY7slBM57uyjVKuD1UouVJHYV9HNEcYKq-Nj59nsky9ykyV59w2PGfdaa7phlJYqgcxTq3G2odQ0Bgo8dfoEX36CWRZgTapuOLCt3jj_9YHG8IHZFaaFxTXCWPgF2BQ0onulLh3_SRIVY7PzeLoV4TOSY_ufw6Kupx3dm_DQUrgXPClYJca-w1gi2bg50W8_IOPN3GJGor9q08h94ziH45McB5O7ybv4EOwJPaxN0L54NiLsw4y5FHM_vkSDIe8lcBxpjo_d3AUuH5HkZKf8BXNtm7i1Qqnm7krSydmypYObCV4fT0K3g9eHPuBc6VvFgU44AEAxB14M4TfnRs-6zkhIf1wnN7qb5Whiv5d5qqqGFXZRgmHjIsLClNSjcvgbNgKXi6Uordux0DnxXubE_fd0NmvVvtDUtb8JuDGwch7ZPZGZkD_oLHYw0sWHVrZFwlILS4G4p9447d8ndzbNukPbhuKqNSBgo3jtEgsU5WUN6wKOdS5iierY40RrySJ8_boE0RBvZZj9ePLYZ8_nexajek5ZG8frLyrFL1jf4lPBzz59QaDIeh-rb-ZEU-bGXoUkPf1K0Grc4Q8';
+  const ML_GROUP_PATIENTS = '183955871027430804';
+  const ML_GROUP_DOCTORS  = '183955882053207370';
+  // ────────────────────────────────────────────────────────────────
+
+  let currentAudience = 'patient';
+
+  // ─── AUDIENCE TOGGLE ───
+  function switchAudience(type) {
+    currentAudience = type;
+    document.querySelectorAll('.aud-toggle-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`[data-type="${type}"]`).classList.add('active');
+    document.getElementById('field-audience').value = type === 'patient' ? 'paciente' : 'medico';
+
+    const extras = document.querySelectorAll('.cta-field-extra');
+    const btn = document.getElementById('cta-submit-btn');
+    if (type === 'doctor') {
+      extras.forEach(f => f.classList.add('visible'));
+      btn.textContent = 'Quiero información del programa';
+    } else {
+      extras.forEach(f => f.classList.remove('visible'));
+      btn.textContent = 'Quiero ser notificado';
+    }
+  }
+
+  // ─── FORM SUBMIT → MAILERLITE ───
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn  = form.querySelector('.cta-btn');
+    const name  = form.querySelector('[name="fields[name]"]').value.trim();
+    const email = form.querySelector('[name="email"]').value.trim();
+    const specialty = form.querySelector('[name="fields[specialty]"]').value.trim();
+    const phone     = form.querySelector('[name="fields[phone]"]').value.trim();
+    const groupId   = currentAudience === 'doctor' ? ML_GROUP_DOCTORS : ML_GROUP_PATIENTS;
+
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    // Campos adicionales
+    const fields = { name };
+    if (specialty) fields.specialty = specialty;
+    if (phone)     fields.phone     = phone;
+    if (currentAudience) fields.audience = currentAudience === 'patient' ? 'Paciente' : 'Médico';
+
+    try {
+      const res = await fetch('https://connect.mailerlite.com/api/subscribers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${ML_API_KEY}`
+        },
+        body: JSON.stringify({ email, fields, groups: [groupId] })
+      });
+
+      if (res.ok || res.status === 409) {
+        // 409 = ya suscrito, también lo tratamos como éxito
+        btn.textContent = currentAudience === 'doctor'
+          ? '¡Recibido! Te contactamos pronto.'
+          : '¡Listo! Te avisamos cuando abramos.';
+        btn.style.background = '#2B4038';
+        form.querySelectorAll('.cta-input').forEach(i => i.disabled = true);
+        document.querySelector('.aud-toggle').style.display = 'none';
+      } else {
+        throw new Error('Error en el envío');
+      }
+    } catch (err) {
+      btn.textContent = 'Algo salió mal. Intenta de nuevo.';
+      btn.style.background = '#9B3B3B';
+      btn.disabled = false;
+    }
+  }
+
+  // ─── FAQ ACCORDION ───
   document.querySelectorAll('.faq-item').forEach(item => {
     item.querySelector('.faq-q').addEventListener('click', () => {
       const isOpen = item.classList.contains('open');
@@ -688,17 +794,7 @@
     });
   });
 
-  // Form handler (placeholder)
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('.cta-btn');
-    btn.textContent = '¡Listo! Te contactamos pronto.';
-    btn.style.background = 'var(--green)';
-    btn.disabled = true;
-    e.target.querySelector('.cta-input').disabled = true;
-  }
-
-  // Smooth nav active state on scroll
+  // ─── NAV ACTIVE STATE ON SCROLL ───
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
   window.addEventListener('scroll', () => {
