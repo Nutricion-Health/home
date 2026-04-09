@@ -251,6 +251,65 @@
     }
     .aud-cta-d:hover { opacity: .88; }
 
+    /* ─── CREDENTIALS BLOCK ─── */
+    .cred-block {
+      display: flex; gap: 16px; align-items: center;
+      background: var(--green-pale);
+      border: 1px solid var(--green-light);
+      border-radius: 12px; padding: 16px 20px;
+      margin: 32px 0 36px;
+    }
+    .cred-avatar {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--green); color: var(--white);
+      font-family: var(--serif); font-size: 16px; font-weight: 400;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; letter-spacing: .02em;
+    }
+    .cred-info { min-width: 0; }
+    .cred-name {
+      font-size: 14px; font-weight: 600; color: var(--charcoal);
+      margin: 0 0 2px;
+    }
+    .cred-title {
+      font-size: 12px; color: var(--charcoal-60);
+      margin: 0 0 8px; line-height: 1.4;
+    }
+    .cred-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+    .cred-badge {
+      font-size: 10px; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase;
+      background: var(--green); color: var(--white);
+      padding: 3px 8px; border-radius: 4px;
+    }
+
+    /* ─── REFERRAL STEPS ─── */
+    .referral-section {
+      background: var(--cream);
+      border-top: 1px solid var(--cream-dark);
+      padding: 72px 48px;
+    }
+    .referral-inner { max-width: 840px; margin: 0 auto; }
+    .referral-steps {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; position: relative;
+      max-width: 720px; margin: 40px auto 0;
+    }
+    .referral-steps::before {
+      content: ''; position: absolute;
+      top: 27px; left: 17%; right: 17%;
+      height: 2px; background: var(--cream-dark); z-index: 0;
+    }
+    .referral-cta { margin-top: 48px; text-align: center; }
+    .referral-cta-btn {
+      background: var(--green); color: var(--white);
+      font-family: var(--sans); font-size: 14px; font-weight: 600;
+      padding: 15px 32px; border-radius: 34px;
+      display: inline-block; text-decoration: none;
+      transition: opacity .2s;
+    }
+    .referral-cta-btn:hover { opacity: .88; }
+
     /* ─── TESTIMONIAL ─── */
     .testimonial { padding: 96px 48px; background: var(--green); text-align: center; }
     .test-mark { font-family: var(--serif); font-size: 96px; color: rgba(255,255,255,.1); line-height: .4; margin-bottom: 36px; display: block; }
@@ -339,6 +398,36 @@
     .cta-btn:hover { background: var(--green-mid); }
     .cta-note { font-size: 12px; color: var(--charcoal-30); }
 
+    /* ─── SUCCESS STATE ─── */
+    .cta-success {
+      display: none;
+      max-width: 480px; margin: 0 auto;
+      padding: 36px 32px;
+      background: var(--white);
+      border-radius: 16px;
+      text-align: center;
+    }
+    .cta-success.visible { display: block; }
+    .cta-success-icon {
+      width: 52px; height: 52px;
+      background: var(--green); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 22px; color: var(--white);
+    }
+    .cta-success-title {
+      font-family: var(--serif); font-size: 22px; font-weight: 400;
+      color: var(--green); margin-bottom: 10px; line-height: 1.25;
+    }
+    .cta-success-body {
+      font-size: 14px; color: var(--charcoal-60); line-height: 1.75; margin: 0;
+    }
+    .cta-success-email {
+      display: inline-block; margin-top: 14px;
+      font-size: 12px; font-weight: 600; color: var(--charcoal-30);
+      background: var(--cream); padding: 6px 14px; border-radius: 20px;
+    }
+
     /* ─── FOOTER ─── */
     .site-footer {
       background: var(--charcoal); padding: 60px 48px 0;
@@ -378,6 +467,9 @@
       .dual { grid-template-columns: 1fr; }
       .audience-panel { padding: 56px 28px; }
       .audience-panel.doctor { border-left: none; border-top: 1px solid var(--cream-dark); }
+      .referral-section { padding: 56px 24px; }
+      .referral-steps { grid-template-columns: 1fr; max-width: 100%; }
+      .referral-steps::before { display: none; }
       .testimonial { padding: 64px 24px; }
       .test-stats { gap: 36px; }
       .faq { padding: 64px 24px; }
@@ -541,30 +633,75 @@
 </section>
 
 <!-- ═══ DOS AUDIENCIAS ═══ -->
-<section class="dual" id="para-medicos">
-  <div class="audience-panel patient">
-    <div class="aud-label">Para el paciente</div>
-    <h2 class="aud-h2 p">Un espacio para preguntar todo lo que no pudiste preguntar en el consultorio.</h2>
-    <p class="aud-body p">Aquí nadie tiene prisa. Cada sesión tiene tiempo real para tus dudas, con un facilitador que habla tu idioma y entiende tu realidad.</p>
-    <div class="aud-list">
-      <div class="aud-item"><div class="aud-dot p"></div><span class="aud-item-text p">Aprende a leer tu glucómetro y entender los números</span></div>
-      <div class="aud-item"><div class="aud-dot p"></div><span class="aud-item-text p">Entiende qué comer sin renunciar a tu cultura alimentaria</span></div>
-      <div class="aud-item"><div class="aud-dot p"></div><span class="aud-item-text p">Reduce el estrés de no saber qué esperar con tu diabetes</span></div>
-      <div class="aud-item"><div class="aud-dot p"></div><span class="aud-item-text p">Accesible desde tu casa, con solo un teléfono o computadora</span></div>
+<section id="para-medicos">
+  <div class="dual">
+    <div class="audience-panel patient">
+      <div class="aud-label">Para el paciente</div>
+      <h2 class="aud-h2 p">Un espacio para preguntar todo lo que no pudiste preguntar en el consultorio.</h2>
+      <p class="aud-body p">Aquí nadie tiene prisa. Cada sesión tiene tiempo real para tus dudas, con un facilitador que habla tu idioma y entiende tu realidad.</p>
+      <div class="aud-list">
+        <div class="aud-item"><div class="aud-dot p"></div><span class="aud-item-text p">Aprende a leer tu glucómetro y entender los números</span></div>
+        <div class="aud-item"><div class="aud-dot p"></div><span class="aud-item-text p">Entiende qué comer sin renunciar a tu cultura alimentaria</span></div>
+        <div class="aud-item"><div class="aud-dot p"></div><span class="aud-item-text p">Reduce el estrés de no saber qué esperar con tu diabetes</span></div>
+        <div class="aud-item"><div class="aud-dot p"></div><span class="aud-item-text p">Accesible desde tu casa, con solo un teléfono o computadora</span></div>
+      </div>
+      <a href="#registro" class="aud-cta-p">Quiero ser notificado</a>
     </div>
-    <a href="#registro" class="aud-cta-p">Quiero ser notificado</a>
+    <div class="audience-panel doctor">
+      <div class="aud-label">Para el médico que refiere</div>
+      <h2 class="aud-h2 d">Educación estructurada para los pacientes que más la necesitan.</h2>
+      <p class="aud-body d">El 90% de los pacientes con DM2 nunca reciben educación estructurada. No por falta de interés — por falta de acceso y tiempo en el consultorio.</p>
+      <div class="aud-list">
+        <div class="aud-item"><div class="aud-dot d"></div><span class="aud-item-text d">Programa estructurado para complementar su plan de tratamiento</span></div>
+        <div class="aud-item"><div class="aud-dot d"></div><span class="aud-item-text d">Informe de progreso al médico referidor tras cada ciclo</span></div>
+        <div class="aud-item"><div class="aud-dot d"></div><span class="aud-item-text d">Reducción promedio de –1.0% HbA1c con educación estructurada</span></div>
+        <div class="aud-item"><div class="aud-dot d"></div><span class="aud-item-text d">Proceso de referido simple — tarjeta física o contacto directo</span></div>
+      </div>
+
+      <!-- ─── CAMBIO 1: Bloque de credenciales ─── -->
+      <div class="cred-block" id="credenciales">
+        <div class="cred-avatar">GG</div>
+        <div class="cred-info">
+          <p class="cred-name">Giovanna Gierbolini Rodríguez</p>
+          <p class="cred-title">Registered Dietitian Nutritionist · Facilitadora del programa</p>
+          <div class="cred-badges">
+            <span class="cred-badge">RDN</span>
+            <span class="cred-badge">DSME/S</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="mailto:medicos@nutricion.health" class="aud-cta-d">Información para médicos</a>
+    </div>
   </div>
-  <div class="audience-panel doctor">
-    <div class="aud-label">Para el médico que refiere</div>
-    <h2 class="aud-h2 d">Educación estructurada para los pacientes que más la necesitan.</h2>
-    <p class="aud-body d">El 90% de los pacientes con DM2 nunca reciben educación estructurada. No por falta de interés — por falta de acceso y tiempo en el consultorio.</p>
-    <div class="aud-list">
-      <div class="aud-item"><div class="aud-dot d"></div><span class="aud-item-text d">Programa estructurado para complementar su plan de tratamiento</span></div>
-      <div class="aud-item"><div class="aud-dot d"></div><span class="aud-item-text d">Informe de progreso al médico referidor tras cada ciclo</span></div>
-      <div class="aud-item"><div class="aud-dot d"></div><span class="aud-item-text d">Reducción promedio de –1.0% HbA1c con educación estructurada</span></div>
-      <div class="aud-item"><div class="aud-dot d"></div><span class="aud-item-text d">Proceso de referido simple — tarjeta física o contacto directo</span></div>
+
+  <!-- ─── CAMBIO 2: Proceso de referido ─── -->
+  <div class="referral-section">
+    <div class="referral-inner">
+      <div class="section-tag">Para el médico que refiere</div>
+      <h2 class="how-h2">Cómo referir a un paciente.</h2>
+      <p class="section-sub" style="max-width:560px;">Tres pasos. Sin formularios complicados. El proceso está diseñado para ser mínimamente invasivo en tu flujo de trabajo.</p>
+      <div class="referral-steps how-steps" style="grid-template-columns: repeat(3,1fr); max-width:720px;">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h4>Entrega la tarjeta de referido</h4>
+          <p>Entrega la tarjeta de referido a tu paciente — o contáctanos directamente por email o teléfono.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h4>Nosotros nos encargamos</h4>
+          <p>Gestionamos el contacto inicial, la verificación de elegibilidad y la coordinación de la primera sesión.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h4>Recibes resumen de progreso</h4>
+          <p>Al completar cada ciclo del programa, recibes un resumen del progreso educativo de tu paciente.</p>
+        </div>
+      </div>
+      <div class="referral-cta">
+        <a href="mailto:medicos@nutricion.health" class="referral-cta-btn">Contactar directamente →</a>
+      </div>
     </div>
-    <a href="mailto:medicos@nutricion.health" class="aud-cta-d">Información para médicos</a>
   </div>
 </section>
 
@@ -616,7 +753,7 @@
         ¿Cuánto cuesta el programa?
         <span class="faq-icon">+</span>
       </div>
-      <p class="faq-a">Estamos en proceso de establecer la estructura de costos y los mecanismos de cobertura del programa. Regístrate y te informamos en cuanto tengamos los detalles disponibles.</p>
+      <p class="faq-a">El programa piloto tiene un precio introductorio de lanzamiento. Regístrate y te confirmamos el costo exacto al momento de tu inscripción. No hay compromiso al registrarte.</p>
     </div>
 
     <div class="faq-item">
@@ -665,7 +802,16 @@
       <input type="tel" name="fields[phone]" class="cta-input cta-field-extra" id="field-phone" placeholder="Teléfono de contacto (opcional)">
       <button type="submit" class="cta-btn" id="cta-submit-btn">Quiero ser notificado</button>
     </form>
-    <p class="cta-note">Solo te contactamos para avisarte. Tus datos son privados.</p>
+    <p class="cta-note" id="cta-note">Solo te contactamos para avisarte. Tus datos son privados.</p>
+
+    <div class="cta-success" id="cta-success">
+      <div class="cta-success-icon">✓</div>
+      <p class="cta-success-title" id="cta-success-title">¡Tu lugar está reservado!</p>
+      <p class="cta-success-body" id="cta-success-body">
+        Te avisamos en cuanto el programa abra — antes de que lo anunciemos públicamente.
+      </p>
+      <span class="cta-success-email" id="cta-success-email"></span>
+    </div>
   </div>
 </section>
 
@@ -680,9 +826,9 @@
     <div class="f-col">
       <h5>Para médicos</h5>
       <ul>
-        <li><a href="#">Información del programa</a></li>
-        <li><a href="#">Proceso de referido</a></li>
-        <li><a href="#">Credenciales del facilitador</a></li>
+        <li><a href="#como-funciona">Información del programa</a></li>
+        <li><a href="#para-medicos">Proceso de referido</a></li>
+        <li><a href="#credenciales">Credenciales del facilitador</a></li>
         <li><a href="mailto:medicos@nutricion.health">Contacto directo</a></li>
       </ul>
     </div>
@@ -698,7 +844,7 @@
   </div>
   <div class="f-bottom">
     <span>© 2026 Nutrición.Health · Todos los derechos reservados</span>
-    <span>Facilitador: Giovanna Gierbolini Rodríguez · Registered Dietitian Nutritionist</span>
+    <span style="color:rgba(255,255,255,.65); font-size:13px; font-weight:500; border-left:2px solid var(--amber); padding-left:12px; margin-left:4px;">Giovanna Gierbolini Rodríguez · RDN · Registered Dietitian Nutritionist</span>
   </div>
 </footer>
 
@@ -768,13 +914,23 @@
       });
 
       if (res.ok || res.status === 409) {
-        // 409 = ya suscrito, también lo tratamos como éxito
-        btn.textContent = currentAudience === 'doctor'
-          ? '¡Recibido! Te contactamos pronto.'
-          : '¡Listo! Te avisamos cuando abramos.';
-        btn.style.background = '#2B4038';
-        form.querySelectorAll('.cta-input').forEach(i => i.disabled = true);
+        // Ocultar toggle, formulario y nota
         document.querySelector('.aud-toggle').style.display = 'none';
+        form.style.display = 'none';
+        document.getElementById('cta-note').style.display = 'none';
+
+        // Personalizar mensaje según audiencia
+        const isDoctor = currentAudience === 'doctor';
+        document.getElementById('cta-success-title').textContent =
+          isDoctor ? '¡Registro confirmado!' : '¡Tu lugar está reservado!';
+        document.getElementById('cta-success-body').textContent =
+          isDoctor
+            ? 'Recibirás información sobre el programa antes de la apertura pública. Si tienes preguntas, puedes escribir directamente a giovanna@nutricion.health.'
+            : 'Te avisamos en cuanto el programa abra — antes de que lo anunciemos públicamente. Revisa tu bandeja de Actualizaciones, ahí debería estar el email de bienvenida.';
+        document.getElementById('cta-success-email').textContent = email;
+
+        // Mostrar estado de éxito
+        document.getElementById('cta-success').classList.add('visible');
       } else {
         throw new Error('Error en el envío');
       }
