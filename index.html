@@ -803,28 +803,29 @@
     <h2 class="cta-h2">Sé de los primeros en saber cuándo abrimos.</h2>
     <p class="cta-sub">Déjanos tu información. Te avisamos cuando el programa esté disponible — sin compromiso, sin spam.</p>
 
-    <div class="aud-toggle">
-      <button type="button" class="aud-toggle-btn active" data-type="patient" onclick="switchAudience('patient')">Soy paciente</button>
-      <button type="button" class="aud-toggle-btn" data-type="doctor" onclick="switchAudience('doctor')">Soy profesional de salud</button>
+    <div class="aud-toggle" style="margin-bottom:20px;">
+      <button type="button" class="aud-toggle-btn active"
+        onclick="document.getElementById('form-paciente').style.display='block';
+                 document.getElementById('form-medico').style.display='none';
+                 document.querySelectorAll('.aud-toggle-btn').forEach(b=>b.classList.remove('active'));
+                 this.classList.add('active');">
+        Soy paciente
+      </button>
+      <button type="button" class="aud-toggle-btn"
+        onclick="document.getElementById('form-paciente').style.display='none';
+                 document.getElementById('form-medico').style.display='block';
+                 document.querySelectorAll('.aud-toggle-btn').forEach(b=>b.classList.remove('active'));
+                 this.classList.add('active');">
+        Soy profesional de salud
+      </button>
     </div>
 
-    <form class="cta-form" id="cta-form" onsubmit="handleSubmit(event)">
-      <input type="hidden" name="fields[audience]" id="field-audience" value="paciente">
-      <input type="text" name="fields[name]" class="cta-input" placeholder="Tu nombre completo" required>
-      <input type="email" name="email" class="cta-input" placeholder="Tu email" required>
-      <input type="text" name="fields[specialty]" class="cta-input cta-field-extra" id="field-specialty" placeholder="Especialidad médica">
-      <input type="tel" name="fields[phone]" class="cta-input cta-field-extra" id="field-phone" placeholder="Teléfono de contacto (opcional)">
-      <button type="submit" class="cta-btn" id="cta-submit-btn">Quiero ser notificado</button>
-    </form>
-    <p class="cta-note" id="cta-note">Solo te contactamos para avisarte. Tus datos son privados.</p>
+    <div id="form-paciente">
+      <div class="ml-embedded" data-form="Bjfvri"></div>
+    </div>
 
-    <div class="cta-success" id="cta-success">
-      <div class="cta-success-icon">✓</div>
-      <p class="cta-success-title" id="cta-success-title">¡Tu lugar está reservado!</p>
-      <p class="cta-success-body" id="cta-success-body">
-        Te avisamos en cuanto el programa abra — antes de que lo anunciemos públicamente.
-      </p>
-      <span class="cta-success-email" id="cta-success-email"></span>
+    <div id="form-medico" style="display:none;">
+      <div class="ml-embedded" data-form="eRQgmR"></div>
     </div>
   </div>
 </section>
@@ -862,99 +863,14 @@
   </div>
 </footer>
 
+<!-- MailerLite Universal -->
 <script>
-  // ─── MAILERLITE CONFIG ───────────────────────────────────────────
-  // 1. Crea una cuenta en mailerlite.com
-  // 2. Ve a Subscribers → Groups y crea dos grupos:
-  //    - "Pacientes - Lista de espera"
-  //    - "Médicos - Lista de espera"
-  // 3. Ve a Integrations → API → copia tu API key
-  // 4. Copia los IDs de cada grupo (están en la URL cuando los abres)
-  // 5. Reemplaza los valores de abajo con los tuyos
+(function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments)};l=d.createElement(e);l.async=1;l.src=u;n=d.getElementsByTagName(e)[0];n.parentNode.insertBefore(l,n)})(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+ml('account', '2246902');
+</script>
+<!-- End MailerLite Universal -->
 
-  const ML_API_KEY        = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiOTEwNTcwYzAzZTNjYzg1YTU0Mjc1YzI3Y2NkMTgzMzVkMjlmNDhlYTFlM2Y1YjIyMWYyYTBiYjc5NGJmY2QxMzhlNGI0ZjY2YzU2ZWJhODQiLCJpYXQiOjE3NzU0MzU3NTguMjUyMjgyLCJuYmYiOjE3NzU0MzU3NTguMjUyMjg0LCJleHAiOjQ5MzExMDkzNTguMjQ1Njk4LCJzdWIiOiIyMjY2NjQxIiwic2NvcGVzIjpbXX0.KN5VN9arBETTMjXfUrOMhkjb8UUoEXm0tSleCqUHPlIQqBl0KRoZbSMzX7zSa1qQF7yGMTNZ9d5lErUyE0_ryiz_ms_LWY7slBM57uyjVKuD1UouVJHYV9HNEcYKq-Nj59nsky9ykyV59w2PGfdaa7phlJYqgcxTq3G2odQ0Bgo8dfoEX36CWRZgTapuOLCt3jj_9YHG8IHZFaaFxTXCWPgF2BQ0onulLh3_SRIVY7PzeLoV4TOSY_ufw6Kupx3dm_DQUrgXPClYJca-w1gi2bg50W8_IOPN3GJGor9q08h94ziH45McB5O7ybv4EOwJPaxN0L54NiLsw4y5FHM_vkSDIe8lcBxpjo_d3AUuH5HkZKf8BXNtm7i1Qqnm7krSydmypYObCV4fT0K3g9eHPuBc6VvFgU44AEAxB14M4TfnRs-6zkhIf1wnN7qb5Whiv5d5qqqGFXZRgmHjIsLClNSjcvgbNgKXi6Uordux0DnxXubE_fd0NmvVvtDUtb8JuDGwch7ZPZGZkD_oLHYw0sWHVrZFwlILS4G4p9447d8ndzbNukPbhuKqNSBgo3jtEgsU5WUN6wKOdS5iierY40RrySJ8_boE0RBvZZj9ePLYZ8_nexajek5ZG8frLyrFL1jf4lPBzz59QaDIeh-rb-ZEU-bGXoUkPf1K0Grc4Q8';
-  const ML_GROUP_PATIENTS = '183955871027430804';
-  const ML_GROUP_DOCTORS  = '183955882053207370';
-  // ────────────────────────────────────────────────────────────────
-
-  let currentAudience = 'patient';
-
-  // ─── AUDIENCE TOGGLE ───
-  function switchAudience(type) {
-    currentAudience = type;
-    document.querySelectorAll('.aud-toggle-btn').forEach(b => b.classList.remove('active'));
-    document.querySelector(`[data-type="${type}"]`).classList.add('active');
-    document.getElementById('field-audience').value = type === 'patient' ? 'paciente' : 'medico';
-
-    const extras = document.querySelectorAll('.cta-field-extra');
-    const btn = document.getElementById('cta-submit-btn');
-    if (type === 'doctor') {
-      extras.forEach(f => f.classList.add('visible'));
-      btn.textContent = 'Quiero información del programa';
-    } else {
-      extras.forEach(f => f.classList.remove('visible'));
-      btn.textContent = 'Quiero ser notificado';
-    }
-  }
-
-  // ─── FORM SUBMIT → MAILERLITE ───
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const form = e.target;
-    const btn  = form.querySelector('.cta-btn');
-    const name  = form.querySelector('[name="fields[name]"]').value.trim();
-    const email = form.querySelector('[name="email"]').value.trim();
-    const specialty = form.querySelector('[name="fields[specialty]"]').value.trim();
-    const phone     = form.querySelector('[name="fields[phone]"]').value.trim();
-    const groupId   = currentAudience === 'doctor' ? ML_GROUP_DOCTORS : ML_GROUP_PATIENTS;
-
-    btn.textContent = 'Enviando...';
-    btn.disabled = true;
-
-    // Campos adicionales
-    const fields = { name };
-    if (specialty) fields.specialty = specialty;
-    if (phone)     fields.phone     = phone;
-    if (currentAudience) fields.audience = currentAudience === 'patient' ? 'Paciente' : 'Médico';
-
-    try {
-      const res = await fetch('https://connect.mailerlite.com/api/subscribers', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${ML_API_KEY}`
-        },
-        body: JSON.stringify({ email, fields, groups: [groupId] })
-      });
-
-      if (res.ok || res.status === 409) {
-        // Ocultar toggle, formulario y nota
-        document.querySelector('.aud-toggle').style.display = 'none';
-        form.style.display = 'none';
-        document.getElementById('cta-note').style.display = 'none';
-
-        // Personalizar mensaje según audiencia
-        const isDoctor = currentAudience === 'doctor';
-        document.getElementById('cta-success-title').textContent =
-          isDoctor ? '¡Registro confirmado!' : '¡Tu lugar está reservado!';
-        document.getElementById('cta-success-body').textContent =
-          isDoctor
-            ? 'Recibirás información sobre el programa antes de la apertura pública. Si tienes preguntas, puedes escribir directamente a giovanna@nutricion.health.'
-            : 'Te avisamos en cuanto el programa abra — antes de que lo anunciemos públicamente. Revisa tu bandeja de Actualizaciones, ahí debería estar el email de bienvenida.';
-        document.getElementById('cta-success-email').textContent = email;
-
-        // Mostrar estado de éxito
-        document.getElementById('cta-success').classList.add('visible');
-      } else {
-        throw new Error('Error en el envío');
-      }
-    } catch (err) {
-      btn.textContent = 'Algo salió mal. Intenta de nuevo.';
-      btn.style.background = '#9B3B3B';
-      btn.disabled = false;
-    }
-  }
-
+<script>
   // ─── FAQ ACCORDION ───
   document.querySelectorAll('.faq-item').forEach(item => {
     item.querySelector('.faq-q').addEventListener('click', () => {
