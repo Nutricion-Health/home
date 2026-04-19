@@ -803,29 +803,27 @@
     <h2 class="cta-h2">Sé de los primeros en saber cuándo abrimos.</h2>
     <p class="cta-sub">Déjanos tu información. Te avisamos cuando el programa esté disponible — sin compromiso, sin spam.</p>
 
-    <div class="aud-toggle" style="margin-bottom:20px;">
-      <button type="button" class="aud-toggle-btn active"
-        onclick="document.getElementById('form-paciente').style.display='block';
-                 document.getElementById('form-medico').style.display='none';
-                 document.querySelectorAll('.aud-toggle-btn').forEach(b=>b.classList.remove('active'));
-                 this.classList.add('active');">
-        Soy paciente
-      </button>
-      <button type="button" class="aud-toggle-btn"
-        onclick="document.getElementById('form-paciente').style.display='none';
-                 document.getElementById('form-medico').style.display='block';
-                 document.querySelectorAll('.aud-toggle-btn').forEach(b=>b.classList.remove('active'));
-                 this.classList.add('active');">
-        Soy profesional de salud
-      </button>
+    <!-- Audience toggle -->
+    <div class="aud-toggle">
+      <button type="button" class="aud-toggle-btn active" data-audience="paciente">Soy paciente</button>
+      <button type="button" class="aud-toggle-btn"        data-audience="medico">Soy profesional de salud</button>
     </div>
 
-    <div id="form-paciente">
-      <div class="ml-embedded" data-form="Bjfvri"></div>
-    </div>
+    <!-- Form -->
+    <form class="cta-form" id="register-form" novalidate>
+      <input type="text"  class="cta-input" id="field-name"  name="name"  placeholder="Tu nombre (opcional)" autocomplete="name">
+      <input type="email" class="cta-input" id="field-email" name="email" placeholder="Tu correo electrónico" required autocomplete="email">
+      <input type="hidden" id="field-audience" name="audience" value="paciente">
+      <button type="submit" class="cta-btn" id="register-btn">Avisarme cuando abra</button>
+    </form>
+    <p class="cta-note">Sin spam. Puedes darte de baja en cualquier momento.</p>
 
-    <div id="form-medico" style="display:none;">
-      <div class="ml-embedded" data-form="eRQgmR"></div>
+    <!-- Success state -->
+    <div class="cta-success" id="register-success">
+      <div class="cta-success-icon">✓</div>
+      <p class="cta-success-title">¡Listo! Estás en la lista.</p>
+      <p class="cta-success-body">Te avisamos cuando el programa esté disponible — antes de anunciarlo públicamente.</p>
+      <a href="mailto:giovanna@nutricion.health" class="cta-success-email">¿Tienes preguntas? Escríbele a Giovanna →</a>
     </div>
   </div>
 </section>
@@ -863,14 +861,62 @@
   </div>
 </footer>
 
-<!-- MailerLite Universal -->
-<script>
-(function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments)};l=d.createElement(e);l.async=1;l.src=u;n=d.getElementsByTagName(e)[0];n.parentNode.insertBefore(l,n)})(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-ml('account', '2246902');
-</script>
-<!-- End MailerLite Universal -->
 
 <script>
+  // ─── SUBSCRIBE FORM ───
+  const WORKER_URL = 'https://WORKER_URL/subscribe'; // ← reemplaza con tu Worker URL
+
+  const toggleBtns = document.querySelectorAll('.aud-toggle-btn');
+  const audienceField = document.getElementById('field-audience');
+
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      toggleBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      audienceField.value = btn.dataset.audience;
+    });
+  });
+
+  document.getElementById('register-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn   = document.getElementById('register-btn');
+    const email = document.getElementById('field-email').value.trim();
+    const name  = document.getElementById('field-name').value.trim();
+    const audience = audienceField.value;
+
+    if (!email) {
+      document.getElementById('field-email').focus();
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+
+    try {
+      const res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, audience }),
+      });
+
+      if (res.ok) {
+        document.getElementById('register-form').style.display  = 'none';
+        document.querySelector('.cta-note').style.display        = 'none';
+        document.querySelector('.aud-toggle').style.display      = 'none';
+        document.getElementById('register-success').classList.add('visible');
+      } else {
+        const data = await res.json().catch(() => ({}));
+        btn.disabled    = false;
+        btn.textContent = 'Avisarme cuando abra';
+        alert(data.error || 'Hubo un error. Por favor intenta de nuevo.');
+      }
+    } catch {
+      btn.disabled    = false;
+      btn.textContent = 'Avisarme cuando abra';
+      alert('No se pudo conectar. Verifica tu conexión e intenta de nuevo.');
+    }
+  });
+
   // ─── FAQ ACCORDION ───
   document.querySelectorAll('.faq-item').forEach(item => {
     item.querySelector('.faq-q').addEventListener('click', () => {
